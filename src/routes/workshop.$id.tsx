@@ -1,8 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useState, type FormEvent } from "react";
+import { ChevronDown } from "lucide-react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import communityHero from "@/assets/community-workshop-hero.jpg";
 
 const workshopQuery = (id: string) =>
   queryOptions({
@@ -31,6 +34,8 @@ export const Route = createFileRoute("/workshop/$id")({
       },
       { property: "og:title", content: loaderData ? `${loaderData.title} — البيدر` : "البيدر" },
       { property: "og:description", content: loaderData?.description ?? "" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: WorkshopPage,
@@ -107,33 +112,45 @@ function WorkshopPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="mx-auto flex max-w-2xl items-center justify-between px-5 pt-8">
-        <Link to="/" className="font-display text-2xl font-bold text-foreground">
-          البيدر
-        </Link>
-        <Link
-          to="/"
-          className="rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground transition-colors hover:bg-secondary"
-        >
-          ← كل الورشات
-        </Link>
-      </header>
-
-      <main className="mx-auto max-w-2xl px-5 pt-10 pb-20">
-        <div className="animate-fade-up">
-          <div
-            className={`${coverClass[w.cover] ?? "cover-wheat"} relative flex h-44 items-end overflow-hidden rounded-3xl border border-border p-6 sm:h-56`}
-          >
-            <span className="text-5xl" aria-hidden>
-              {coverEmoji[w.cover] ?? "🌾"}
-            </span>
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[var(--hero-surface)]">
+        <img
+          src={communityHero}
+          alt="أجواء ورش مجتمع البيدر"
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover object-[35%_center]"
+        />
+        <div className="hero-scrim-rtl absolute inset-0" />
+        <div className="hero-vignette absolute inset-0" />
+        <header className="absolute inset-x-0 top-0 z-20 mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-6 sm:px-8 lg:px-12">
+          <Link to="/" className="min-w-0 truncate font-display text-2xl font-bold text-[var(--hero-foreground)]">البيدر</Link>
+          <Link to="/" className="shrink-0 border border-[var(--hero-line)] px-3 py-1.5 text-xs text-[var(--hero-muted)] transition-colors hover:text-[var(--hero-foreground)]">
+            كل الورشات
+          </Link>
+        </header>
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-28 pt-24 sm:px-8 lg:px-12">
+          <div className="max-w-3xl animate-fade-up">
+            <span className="inline-block bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">{w.category}</span>
+            <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-[var(--hero-foreground)] sm:text-6xl lg:text-7xl">{w.title}</h1>
+            <p className="mt-6 text-lg text-[var(--hero-muted)]">{dateFmt.format(d)} · {timeFmt.format(d)} · {w.location}</p>
           </div>
+        </div>
+        <Button asChild size="lg" className="absolute bottom-7 left-1/2 z-20 h-auto -translate-x-1/2 rounded-none px-6 py-4">
+          <a href="#workshop-details" aria-label="اكتشف ورشنا وانتقل إلى تفاصيل الورشة">
+            اكتشف ورشنا
+            <ChevronDown className="animate-bounce" aria-hidden />
+          </a>
+        </Button>
+      </section>
 
-          <div className="mt-6">
+      <main id="workshop-details" className="mx-auto max-w-2xl scroll-mt-0 px-5 py-20">
+        <div className="animate-fade-up">
+          <div>
             <span className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
               {w.category}
             </span>
-            <h1 className="mt-3 text-3xl font-bold leading-snug text-foreground">{w.title}</h1>
+            <h2 className="mt-3 text-3xl font-bold leading-snug text-foreground">تفاصيل الورشة</h2>
 
             <dl className="mt-5 space-y-3 rounded-2xl border border-border bg-card p-5 text-sm">
               <div className="flex items-center gap-3">
@@ -173,7 +190,7 @@ function WorkshopPage() {
           </div>
 
           {/* Booking */}
-          <section className="mt-10 rounded-3xl border border-border bg-card p-6 sm:p-8">
+          <section className="mt-10 rounded-lg border border-border bg-card p-6 sm:p-8">
             {status === "done" ? (
               <div className="py-6 text-center animate-fade-up">
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-2xl">
@@ -234,13 +251,13 @@ function WorkshopPage() {
                     </p>
                   )}
 
-                  <button
+                  <Button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="w-full rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+                    className="h-auto w-full rounded-md px-5 py-3"
                   >
                     {status === "submitting" ? "جارٍ الحجز…" : "تأكيد الحجز"}
-                  </button>
+                  </Button>
                 </form>
               </>
             )}

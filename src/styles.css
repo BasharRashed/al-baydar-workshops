@@ -32,31 +32,36 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
-  --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Aref Ruqaa", serif;
+  --font-sans: "Figtree", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --radius: 1rem;
-  --background: oklch(0.975 0.012 95);
-  --foreground: oklch(0.25 0.03 60);
-  --card: oklch(0.995 0.006 95);
-  --card-foreground: oklch(0.25 0.03 60);
-  --popover: oklch(0.995 0.006 95);
-  --popover-foreground: oklch(0.25 0.03 60);
-  --primary: oklch(0.42 0.09 55);
-  --primary-foreground: oklch(0.98 0.01 95);
-  --secondary: oklch(0.93 0.025 90);
-  --secondary-foreground: oklch(0.35 0.05 60);
-  --muted: oklch(0.94 0.018 92);
-  --muted-foreground: oklch(0.52 0.03 65);
-  --accent: oklch(0.78 0.11 75);
-  --accent-foreground: oklch(0.28 0.04 60);
+  --radius: 0.5rem;
+  --background: oklch(0.975 0.008 95);
+  --foreground: oklch(0.25 0.015 145);
+  --card: oklch(0.995 0.003 95);
+  --card-foreground: oklch(0.25 0.015 145);
+  --popover: oklch(0.995 0.003 95);
+  --popover-foreground: oklch(0.25 0.015 145);
+  --primary: oklch(0.56 0.14 35);
+  --primary-foreground: oklch(0.985 0.005 95);
+  --secondary: oklch(0.79 0.045 125);
+  --secondary-foreground: oklch(0.27 0.025 145);
+  --muted: oklch(0.94 0.012 95);
+  --muted-foreground: oklch(0.5 0.018 145);
+  --accent: oklch(0.64 0.13 38);
+  --accent-foreground: oklch(0.985 0.005 95);
   --destructive: oklch(0.55 0.2 28);
   --destructive-foreground: oklch(0.98 0.01 95);
-  --border: oklch(0.89 0.02 90);
-  --input: oklch(0.89 0.02 90);
-  --ring: oklch(0.62 0.1 65);
+  --border: oklch(0.88 0.012 95);
+  --input: oklch(0.88 0.012 95);
+  --ring: oklch(0.56 0.14 35);
+  --hero-foreground: oklch(0.98 0.006 95);
+  --hero-muted: oklch(0.86 0.012 95);
+  --hero-surface: oklch(0.18 0.012 145);
+  --hero-overlay: oklch(0.14 0.012 145 / 0.9);
+  --hero-line: oklch(0.98 0.006 95 / 0.28);
 }
 
 @layer base {
@@ -69,6 +74,40 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@utility hero-scrim {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--hero-overlay) 96%, transparent) 0%,
+    color-mix(in oklab, var(--hero-overlay) 78%, transparent) 42%,
+    color-mix(in oklab, var(--hero-overlay) 18%, transparent) 78%,
+    transparent 100%
+  );
+}
+
+@utility hero-scrim-rtl {
+  background: linear-gradient(
+    270deg,
+    color-mix(in oklab, var(--hero-overlay) 96%, transparent) 0%,
+    color-mix(in oklab, var(--hero-overlay) 78%, transparent) 42%,
+    color-mix(in oklab, var(--hero-overlay) 18%, transparent) 78%,
+    transparent 100%
+  );
+}
+
+@utility hero-vignette {
+  background: linear-gradient(0deg, color-mix(in oklab, var(--hero-surface) 72%, transparent), transparent 40%);
 }
 
 @utility cover-wheat {
