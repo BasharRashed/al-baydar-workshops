@@ -14,7 +14,80 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          phone: string
+          workshop_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          phone: string
+          workshop_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+          workshop_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_workshop_id_fkey"
+            columns: ["workshop_id"]
+            isOneToOne: false
+            referencedRelation: "workshops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workshops: {
+        Row: {
+          capacity: number
+          category: string
+          cover: string
+          created_at: string
+          description: string
+          host: string
+          id: string
+          location: string
+          starts_at: string
+          title: string
+        }
+        Insert: {
+          capacity?: number
+          category: string
+          cover?: string
+          created_at?: string
+          description: string
+          host: string
+          id?: string
+          location: string
+          starts_at: string
+          title: string
+        }
+        Update: {
+          capacity?: number
+          category?: string
+          cover?: string
+          created_at?: string
+          description?: string
+          host?: string
+          id?: string
+          location?: string
+          starts_at?: string
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
