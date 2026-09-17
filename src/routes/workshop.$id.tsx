@@ -112,39 +112,21 @@ function WorkshopPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[var(--hero-surface)]">
-        <img
-          src={communityHero}
-          alt="أجواء ورش مجتمع البيدر"
-          width={1920}
-          height={1080}
-          fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover object-[35%_center]"
-        />
-        <div className="hero-scrim-rtl absolute inset-0" />
-        <div className="hero-vignette absolute inset-0" />
-        <header className="absolute inset-x-0 top-0 z-20 mx-auto grid w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-6 sm:px-8 lg:px-12">
-          <Link to="/" className="min-w-0 truncate font-display text-2xl font-bold text-[var(--hero-foreground)]">البيدر</Link>
-          <Link to="/" className="shrink-0 border border-[var(--hero-line)] px-3 py-1.5 text-xs text-[var(--hero-muted)] transition-colors hover:text-[var(--hero-foreground)]">
+      <header className="border-b border-border bg-card/60">
+        <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-5 sm:px-8">
+          <Link to="/" className="font-display text-2xl font-bold text-foreground">
+            البيدر
+          </Link>
+          <Link
+            to="/workshops"
+            className="border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
             كل الورشات
           </Link>
-        </header>
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-28 pt-24 sm:px-8 lg:px-12">
-          <div className="max-w-3xl animate-fade-up">
-            <span className="inline-block bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">{w.category}</span>
-            <h1 className="mt-5 font-display text-4xl font-bold leading-tight text-[var(--hero-foreground)] sm:text-6xl lg:text-7xl">{w.title}</h1>
-            <p className="mt-6 text-lg text-[var(--hero-muted)]">{dateFmt.format(d)} · {timeFmt.format(d)} · {w.location}</p>
-          </div>
         </div>
-        <Button asChild size="lg" className="absolute bottom-7 left-1/2 z-20 h-auto -translate-x-1/2 rounded-none px-6 py-4">
-          <a href="#workshop-details" aria-label="اكتشف ورشنا وانتقل إلى تفاصيل الورشة">
-            اكتشف ورشنا
-            <ChevronDown className="animate-bounce" aria-hidden />
-          </a>
-        </Button>
-      </section>
+      </header>
 
-      <main id="workshop-details" className="mx-auto max-w-2xl scroll-mt-0 px-5 py-20">
+      <main className="mx-auto max-w-2xl px-5 py-14">
         <div className="animate-fade-up">
           <div>
             <span className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
