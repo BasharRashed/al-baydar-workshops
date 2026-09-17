@@ -265,7 +265,7 @@ function Field({
   type: string;
   placeholder: string;
   value: string;
-  error?: string;
+  error?: string | undefined;
   onChange: (v: string) => void;
 }) {
   return (
