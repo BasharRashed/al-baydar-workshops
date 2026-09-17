@@ -41,6 +41,15 @@ const dateFmt = new Intl.DateTimeFormat("ar", {
 });
 const timeFmt = new Intl.DateTimeFormat("ar", { hour: "numeric", minute: "2-digit" });
 
+const coverClass: Record<string, string> = {
+  calligraphy: "cover-calligraphy",
+  dialogue: "cover-dialogue",
+  coffee: "cover-coffee",
+  books: "cover-books",
+  camera: "cover-camera",
+  wheat: "cover-wheat",
+};
+
 const coverEmoji: Record<string, string> = {
   calligraphy: "✒️",
   dialogue: "💬",
@@ -95,7 +104,7 @@ function HomePage() {
                   className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_oklch(0.5_0.05_70/0.12)]"
                 >
                   <div
-                    className={`cover-${w.cover} flex h-16 w-16 shrink-0 items-center justify-center rounded-xl text-2xl`}
+                    className={`${coverClass[w.cover] ?? "cover-wheat"} flex h-16 w-16 shrink-0 items-center justify-center rounded-xl text-2xl`}
                     aria-hidden
                   >
                     {coverEmoji[w.cover] ?? "🌾"}

@@ -44,6 +44,15 @@ const dateFmt = new Intl.DateTimeFormat("ar", {
 });
 const timeFmt = new Intl.DateTimeFormat("ar", { hour: "numeric", minute: "2-digit" });
 
+const coverClass: Record<string, string> = {
+  calligraphy: "cover-calligraphy",
+  dialogue: "cover-dialogue",
+  coffee: "cover-coffee",
+  books: "cover-books",
+  camera: "cover-camera",
+  wheat: "cover-wheat",
+};
+
 const coverEmoji: Record<string, string> = {
   calligraphy: "✒️",
   dialogue: "💬",
@@ -113,7 +122,7 @@ function WorkshopPage() {
       <main className="mx-auto max-w-2xl px-5 pt-10 pb-20">
         <div className="animate-fade-up">
           <div
-            className={`cover-${w.cover} relative flex h-44 items-end overflow-hidden rounded-3xl border border-border p-6 sm:h-56`}
+            className={`${coverClass[w.cover] ?? "cover-wheat"} relative flex h-44 items-end overflow-hidden rounded-3xl border border-border p-6 sm:h-56`}
           >
             <span className="text-5xl" aria-hidden>
               {coverEmoji[w.cover] ?? "🌾"}
